@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 /**
- * is funtion to receive the information of Login and register
+ * is function to receive the information of Login and register
  * @param nothing
  */
 @Composable
@@ -29,5 +29,6 @@ fun MainLoginRegisterScreen() {
 }
 
 fun onLogin(username: String, password: String): Unit {
+
 
 }

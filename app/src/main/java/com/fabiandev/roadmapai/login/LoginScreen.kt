@@ -1,6 +1,8 @@
 package com.fabiandev.roadmapai.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,17 +20,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
+import com.fabiandev.roadmapai.ui.theme.Pink40
+import com.fabiandev.roadmapai.ui.theme.Pink80
 
 @Composable
-fun LoginScreen(onLogin: (String, String) -> Unit, navController: NavHostController) {
+fun LoginScreen(onLogin: ((String, String) -> Unit)?, navController: NavHostController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+
+
 
     Column(
         modifier = Modifier
@@ -63,6 +76,16 @@ fun LoginScreen(onLogin: (String, String) -> Unit, navController: NavHostControl
 
         Spacer(modifier = Modifier.height(32.dp))
 
+
+
+        RoadMapNavigationButton(
+            navController = navController,
+            route = "home",
+            text = "Go to home",
+        )
+
+
+
         Button(
             onClick = {
                 isLoading = true
@@ -78,13 +101,13 @@ fun LoginScreen(onLogin: (String, String) -> Unit, navController: NavHostControl
             }
         }
 
-        Button(onClick = { navController.navigate("signup") }, modifier =  Modifier.fillMaxWidth() ) {
-            Text(text = "Go to Signup")
-        }
-        Button(onClick = { navController.navigate("home") }, modifier = Modifier.fillMaxWidth() ) {
-            Text(text = "Go to home")
-        }
     }
+}
+
+@Composable
+@Preview
+fun Preview() {
+    LoginScreen(onLogin = null, navController = rememberNavController())
 }
 
 

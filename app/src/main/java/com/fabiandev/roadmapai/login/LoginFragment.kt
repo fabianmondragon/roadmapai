@@ -5,11 +5,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
+/**
+ * is funtion to receive the information of Login and register
+ * @param nothing
+ */
 @Composable
 fun MainLoginRegisterScreen() {
-    // Create a NavController
+    // is a helper function that provides a NavController
+    // the navController is the core component that enables Composes screen(composables) to navigate between each other.
+    // retine the NavController instace during recompositions, preventing unexpected resets of the navigation stack
     val navController = rememberNavController()
-    // Set up the NavHost with the NavController and start destination
+
+    // The navHost composable is used to define the navigation graph.
     NavHost(
         navController = navController,
         startDestination = "home"

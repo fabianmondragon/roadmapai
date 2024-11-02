@@ -1,32 +1,32 @@
-package com.fabiandev.roadmapai.login
+package com.fabiandev.roadmapai.login.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.fabiandev.roadmapai.R
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
 import com.fabiandev.roadmapai.ui.theme.Pink40
 import com.fabiandev.roadmapai.ui.theme.Pink80
@@ -40,6 +40,13 @@ fun PreviewLoginSignUp() {
 
 @Composable
 fun LoginSignUpScreen(navController: NavHostController) {
+
+    val textLogin = buildAnnotatedString {
+        append("Already have an account? ")
+        pushStyle(SpanStyle(textDecoration = TextDecoration.Underline))
+        append("Sign in here")
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,15 +60,15 @@ fun LoginSignUpScreen(navController: NavHostController) {
 
         Column(
             modifier = Modifier
-                .padding(40.dp)
+                .padding(dimensionResource(id = R.dimen.size_40dp))
                 .align(Alignment.TopCenter)
 
 
         )
         {
             Text(
-                modifier = Modifier.fillMaxWidth().padding(40.dp),
-                text = "A.M",
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(id = R.string.app_name),
 
                 fontSize = 16.sp,
                 color = Color.White,
@@ -77,61 +84,61 @@ fun LoginSignUpScreen(navController: NavHostController) {
         {
 
 
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_80dp)))
 
             // Main Greeting Text
             Text(
-                text = "Hello.",
+                text = stringResource(id = R.string.main_greeting),
                 fontSize = 48.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
 
             )
             Text(
-                text = "Let’s Get Started!",
-                fontSize = 24.sp,
+                text = stringResource(id = R.string.sub_greeting),
+                fontSize =  24.sp,
                 color = Color.White,
 
                 )
 
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_80dp)))
 
             RoadMapNavigationButton(
                 navController = navController,
                 route = "signup",
-                text = "Go to Signup",
+                text = stringResource(id = R.string.signup),
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth()
                     .height(50.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_16dp)))
 
             Text(
-                text = "or",
+                text = stringResource(id = R.string.or),
                 fontSize = 18.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_16dp)))
 
             RoadMapNavigationButton(
                 navController = navController,
                 route = "signup",
-                text = "Go to Google",
+                text = stringResource(id = R.string.signup_google),
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(50.dp)
+                    .fillMaxWidth()
+                    .height(dimensionResource(id = R.dimen.size_50dp))
             )
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_32dp)))
 
             Text(
-                text = "Already have an account? Sign in here.",
+                text = textLogin,
                 fontSize = 14.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.size_16dp))
             )
 
         }

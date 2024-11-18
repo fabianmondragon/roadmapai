@@ -4,6 +4,7 @@
     <string name="main_greeting">Hello.</string>
     <string name="sub_greeting">Let’s Get Started!</string>
     <string name="signup">Signup</string>
+    <string name="up">Up</string>
     <string name="or">or</string>
     <string name="signup_google">Sign Up with Google</string>
     <string name="login_prompt">Already have an account?</string>

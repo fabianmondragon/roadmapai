@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.fabiandev.roadmapai.login.ui.LoginSignUpScreen
+import com.fabiandev.roadmapai.login.ui.HomeScreen
 
 /**
  * is function to receive the information of Login and register
@@ -20,13 +20,18 @@ fun MainLoginRegisterScreen() {
     // The navHost composable is used to define the navigation graph.
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = RoadMapRoute.home.toString()
     ) {
         // Define the composable screens with routes
-        composable("home") { LoginSignUpScreen(navController) }
-        composable("login") { LoginScreen(::onLogin, navController) }
-        composable("signup") { SignUpScreen(navController) }
+        composable(RoadMapRoute.home.toString()) { HomeScreen(navController) }
+        composable(RoadMapRoute.login.toString()) { LoginScreen(::onLogin, navController) }
+        composable(RoadMapRoute.signup.toString()) { SignUpScreen(navController) }
     }
+}
+sealed class RoadMapRoute {
+    object home: RoadMapRoute()
+    object login: RoadMapRoute()
+    object signup: RoadMapRoute()
 }
 
 fun onLogin(username: String, password: String): Unit {

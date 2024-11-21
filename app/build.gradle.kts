@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.dokkaPlugins)
+    alias(libs.plugins.hiltPlugins)
+    kotlin("kapt")
+
 }
 
 android {
@@ -68,6 +71,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.navigation.compose)
     implementation(libs.dokka.jetbrains)
+    implementation(libs.dagger.hilt)
+    implementation(libs.navigation.hilt)
+    implementation(libs.javapoet)
+    kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

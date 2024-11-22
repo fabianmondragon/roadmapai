@@ -21,3 +21,9 @@ jobs:
 
       - name: Run Linter
         run: ./gradlew lint  # Run linting for your project
+
+      - name: Report Lint Issues to PR
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review  # This will post comments directly on the PR

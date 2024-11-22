@@ -18,9 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -34,8 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
 import com.fabiandev.roadmapai.login.signup.SignUpViewModel
+import com.fabiandev.roadmapai.login.utils.ResultUi
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
 import com.fabiandev.roadmapai.ui.theme.Pink40
 
@@ -111,7 +110,7 @@ fun SignUpScreen(
                 value = email ?: "",
                 onValueChange = { signUpViewModel.onEmailChanged(it) },
                 label = { Text("Email") },
-                isError = emailError != null,
+                isError = emailError is ResultUi.Fail,
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Pink40,
@@ -126,17 +125,14 @@ fun SignUpScreen(
                     errorLabelColor = Pink40
                 )
             )
-
-            if (emailError != null) {
+            if (emailError is ResultUi.Fail) {
                 Text(
-                    text = emailError!!,
+                    text = (emailError as ResultUi.Fail).msg,
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }
-
-
             Spacer(modifier = Modifier.height(16.dp))
 
             // Password TextField
@@ -144,7 +140,7 @@ fun SignUpScreen(
                 value = password ?: "",
                 onValueChange = { signUpViewModel.onPasswordChange(it) },
                 label = { Text("Password") },
-                isError = passwordError != null,
+                isError = passwordError is ResultUi.Fail,
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Pink40,
@@ -164,9 +160,9 @@ fun SignUpScreen(
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            if (passwordError != null) {
+            if (passwordError is ResultUi.Fail) {
                 Text(
-                    text = passwordError!!,
+                    text = (passwordError as ResultUi.Fail).msg,
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -180,7 +176,7 @@ fun SignUpScreen(
                 value = repeatPassword ?: "",
                 onValueChange = { signUpViewModel.onRepeatPasswordChange(it) },
                 label = { Text("Confirm Password") },
-                isError = repeatPasswordError != null,
+                isError = repeatPasswordError is ResultUi.Fail,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Pink40,
                     unfocusedLabelColor = Pink40,
@@ -198,9 +194,9 @@ fun SignUpScreen(
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            if (repeatPasswordError != null) {
+            if (repeatPasswordError is ResultUi.Fail) {
                 Text(
-                    text = repeatPasswordError!!,
+                    text = (repeatPasswordError as ResultUi.Fail).msg,
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -223,5 +219,5 @@ fun SignUpScreen(
 @Composable
 @Preview
 fun PreviewSignUp() {
-    //SignUpScreen(navController = rememberNavController())
+    SignUpScreen(navController = rememberNavController())
 }

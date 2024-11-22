@@ -1,9 +1,11 @@
 package com.fabiandev.roadmapai.login.signup
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fabiandev.roadmapai.login.utils.Constant.Companion.emailRegex
 import com.fabiandev.roadmapai.login.utils.Constant.Companion.passwordRegex
+import com.fabiandev.roadmapai.login.utils.ResultUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,20 +25,20 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
     val email: StateFlow<String?> = _email
 
     // Email error state
-    private val _emailError = MutableStateFlow<String?>(null)
-    val emailError: StateFlow<String?> = _emailError
+    private val _emailError = MutableStateFlow<ResultUi>(ResultUi.InitialState)
+    val emailError: StateFlow<ResultUi> = _emailError
 
     private val _password = MutableStateFlow("")
     val password: StateFlow<String?> = _password
 
-    private val _passwordError = MutableStateFlow<String?>(null)
-    val passwordError: StateFlow<String?> = _passwordError
+    private val _passwordError = MutableStateFlow<ResultUi>(ResultUi.InitialState)
+    val passwordError: StateFlow<ResultUi> = _passwordError
 
     private val _repeatPassword = MutableStateFlow("")
     val repeatPassword: StateFlow<String?> = _repeatPassword
 
-    private val _repeatPasswordError = MutableStateFlow<String?>(null)
-    val repeatPasswordError: StateFlow<String?> = _repeatPasswordError
+    private val _repeatPasswordError = MutableStateFlow<ResultUi>(ResultUi.InitialState)
+    val repeatPasswordError: StateFlow<ResultUi> = _repeatPasswordError
 
     // SharedFlow for navigation events
     private val _navigationEvent = MutableSharedFlow<String>()
@@ -58,19 +60,22 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun validateEmail(email: String) {
-        _emailError.value = if (email.matches(emailRegex)) null else "Invalid email format"
+        _emailError.value = if (email.matches(emailRegex)) ResultUi.Success else ResultUi.Fail("Invalid email format")
     }
 
     private fun validatePassword(password: String) {
-        _passwordError.value = if (password.matches(passwordRegex)) null else "Invalid password format"
+        _passwordError.value = if (password.matches(passwordRegex)) ResultUi.Success else ResultUi.Fail("Invalid password format")
     }
 
     private fun validateRepeatPassword(){
-        _repeatPasswordError.value = if ( validateSamePassword()) null else "The password do not match"
+        _repeatPasswordError.value = if ( validateSamePassword()) ResultUi.Success else ResultUi.Fail("The password do not match")
     }
 
-    fun thereIsError() =
-        (_emailError.value == null && _passwordError.value == null && _repeatPasswordError.value == null)
+    fun thereIsError(): Boolean {
+        val result = (_emailError.value == ResultUi.Success && _passwordError.value == ResultUi.Success && _repeatPasswordError.value == ResultUi.Success)
+        return result
+    }
+
 
     fun validateFormAndNavigate() {
         viewModelScope.launch {

@@ -1,0 +1,23 @@
+name: PR Revision
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Fetch the PR code
+
+      - name: Set up JDK (if using Java/Kotlin)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Adjust Java version as needed
+
+      - name: Run Linter
+        run: ./gradlew lint  # Run linting for your project

@@ -1,20 +1,38 @@
-name: Test JDK Setup
+name: PR Revision
 
 on:
   pull_request:
     branches:
-      - develop
+      - develop  # Trigger when a PR is created/updated to merge into 'develop'
 
 jobs:
   setup-java:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Fetch the PR code
 
-      - name: Set up JDK
+      - name: Set up JDK (Java 17)
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'  # Key parameter for JDK
+          java-version: '17'  # Specify the Java version to use
+          distribution: 'temurin'  # Java distribution (Temurin is a popular open-source JDK)
+
+      - name: Run Linter
+        run: ./gradlew lint  # Run linting for your project
+
+  lint-report:
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
+
+    needs: setup-java  # Ensure this step only runs after the setup-java job has completed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Fetch the PR code
+
+      - name: Report Lint Issues to PR
+        uses: reviewdog/action-eslint@v1  # Reviewdog can report issues in PR comments
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
+          reporter: github-pr-review  # This will post comments directly on the PR

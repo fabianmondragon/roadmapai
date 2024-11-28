@@ -3,28 +3,28 @@ name: PR Revision
 on:
   pull_request:
     branches:
-      - develop
-
+      - develop  # Trigger on pull requests targeting the 'develop' branch
 
 jobs:
   lint:
-    runs-on: ubuntu-latest  # Specify the OS environment for the job
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Fetch the PR code
+        uses: actions/checkout@v3
 
-      - name: Set up JDK (if using Java/Kotlin)
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'  # Adjust Java version as needed
-          distribution: 'temurin'
+          java-version: '17'
+          distribution: 'temurin'  # Specify the required distribution
 
       - name: Run Linter
-        run: ./gradlew lint  # Run linting for your project
+        run: ./gradlew lint
 
       - name: Report Lint Issues to PR
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review  # This will post comments directly on the PR
+          reporter: github-pr-review
+          filter_mode: added  # Only comment on changes in the PR

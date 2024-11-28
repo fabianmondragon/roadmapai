@@ -28,14 +28,11 @@ jobs:
       - name: Show Gradle build output
         run: ./gradlew lint --stacktrace  # Show detailed logs with stack trace
 
-      - name: List contents of build directory
-        run: ls -R build  # List the contents of the build directory
-
-      - name: List files in build/reports (Debug)
-        run: ls -l build/reports  # List files in the build/reports directory
+      - name: List contents of app/build directory
+        run: ls -R app/build  # List the contents of the app/build directory
 
       - name: Check lint results file
-        run: ls -l build/reports/lint-results.xml  # Verify that the lint results file exists
+        run: ls -l app/build/reports/lint-results.xml  # Verify that the lint results file exists
 
   lint-report:
     runs-on: ubuntu-latest  # Specify the OS environment for the job
@@ -50,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lint-results
-          path: build/reports/lint-results.xml  # Upload lint results file as an artifact
+          path: app/build/reports/lint-results.xml  # Upload lint results file as an artifact
 
       - name: Reviewdog Lint Report
         uses: reviewdog/action-checkstyle@v1  # Correct Reviewdog action
@@ -58,5 +55,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
           reporter: github-pr-review  # This will post comments directly on the PR
           check_name: "Android Lint"  # Name of the check in GitHub
-          lint_command: 'cat build/reports/lint-results.xml'  # Read lint results file
+          lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file from correct location
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog

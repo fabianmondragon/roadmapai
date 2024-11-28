@@ -5,6 +5,10 @@ on:
     branches:
       - develop  # Trigger on PR targeting the 'develop' branch
 
+permissions:
+  contents: write  # Allow writing to the repository (necessary for posting comments)
+  pull-requests: write  # Allow posting comments on PRs
+
 jobs:
   setup-java:
     runs-on: ubuntu-latest  # Specify the OS environment for the job
@@ -60,4 +64,4 @@ jobs:
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog
 
       - name: Show Reviewdog Logs
-        run: tail -n 50 /tmp/reviewdog.log
+        run: cat /tmp/reviewdog.log

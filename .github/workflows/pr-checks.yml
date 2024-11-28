@@ -1,29 +1,60 @@
-name: CI
+name: PR Revision
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - develop  # Trigger on PR targeting the 'develop' branch
 
 jobs:
-  build:
-    name: CI Build
-    runs-on: ubuntu-latest
+  setup-java:
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@v3  # Fetch the PR code
 
-      - name: Setup JDK 8
-        uses: actions/setup-java@master
+      - name: Set up JDK (Java 17)
+        uses: actions/setup-java@v3
         with:
-          java-version: 8
+          java-version: '17'  # Specify the Java version to use
+          distribution: 'temurin'  # Java distribution (Temurin is a popular open-source JDK)
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Clean Build (Ensure directory exists)
+        run: ./gradlew clean  # Clean the build to ensure a fresh run
 
-      - name: Run Gradle build
-        run: ./gradlew build
+      - name: Run Linter (Gradle)
+        run: ./gradlew lint  # Run linting for your Android project using Gradle
 
-      - name: Run Android Lint
-        uses: dvdandroid/action-android-lint@master
+      - name: Show Gradle build output
+        run: ./gradlew lint --stacktrace  # Show detailed logs with stack trace
+
+      - name: List contents of app/build directory
+        run: ls -R app/build  # List the contents of the app/build directory
+
+      - name: Check lint results file
+        run: ls -l app/build/reports/lint-results.xml  # Verify that the lint results file exists
+
+  lint-report:
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
+
+    needs: setup-java  # Ensure this step only runs after the setup-java job has completed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Fetch the PR code
+
+      - name: Upload Lint Results as Artifact
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          lint_xml_file: app/build/reports/lint-results.xml
+          name: lint-results
+          path: app/build/reports/lint-results.xml  # Upload lint results file as an artifact
+
+      - name: Reviewdog Lint Report
+        uses: reviewdog/action-setup@v1  # Correct Reviewdog action
+        with:
+          reviewdog_version: latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
+          reporter: github-pr-review  # This will post comments directly on the PR
+          check_name: "Android Lint"  # Name of the check in GitHub
+          lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file from correct location
+          lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog

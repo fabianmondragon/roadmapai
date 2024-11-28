@@ -58,3 +58,6 @@ jobs:
           check_name: "Android Lint"  # Name of the check in GitHub
           lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file from correct location
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog
+
+      - name: Show Reviewdog Logs
+        run: tail -n 50 /tmp/reviewdog.log

@@ -36,7 +36,8 @@ jobs:
         uses: actions/checkout@v3  # Fetch the PR code
 
       - name: Reviewdog Lint Report
-        uses: reviewdog/action-reviewdog@v1  # Use the correct Reviewdog action
+        uses: reviewdog/action-setup@v1
+        # Use the correct Reviewdog action
         with:
           reviewdog_version: latest
           github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
@@ -44,3 +45,4 @@ jobs:
           check_name: "Android Lint"  # Optional: Name for the check
           lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog
+      - run: reviewdog -version

@@ -3,11 +3,11 @@ name: Android Lint Review
 on:
   pull_request:
     branches:
-      - develop
+      - develop  # Trigger on PR targeting the 'develop' branch
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+  setup-java:
+    runs-on: ubuntu-latest  # Specify the OS environment for the job
 
     steps:
       - name: Checkout code

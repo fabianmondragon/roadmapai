@@ -63,5 +63,3 @@ jobs:
           lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file from correct location
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog
 
-      - name: Show Reviewdog Logs
-        run: cat /tmp/reviewdog.log

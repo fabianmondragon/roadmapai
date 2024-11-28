@@ -19,8 +19,17 @@ jobs:
           java-version: '17'  # Specify the Java version to use
           distribution: 'temurin'  # Java distribution (Temurin is a popular open-source JDK)
 
+      - name: Clean Build (Ensure directory exists)
+        run: ./gradlew clean  # Clean the build to ensure a fresh run
+
       - name: Run Linter (Gradle)
         run: ./gradlew lint  # Run linting for your Android project using Gradle
+
+      - name: Show Gradle build output
+        run: ./gradlew lint --stacktrace  # Show detailed logs with stack trace
+
+      - name: List contents of build directory
+        run: ls -R build  # List the contents of the build directory
 
       - name: List files in build/reports (Debug)
         run: ls -l build/reports  # List files in the build/reports directory

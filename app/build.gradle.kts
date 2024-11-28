@@ -11,6 +11,10 @@ android {
     namespace = "com.fabiandev.roadmapai"
     compileSdk = 34
 
+    lint {
+        xmlReport = true
+        xmlOutput = file("build/reports/lint-results.xml")  // Ensure the path is correct
+    }
     defaultConfig {
         applicationId = "com.fabiandev.roadmapai"
         minSdk = 24

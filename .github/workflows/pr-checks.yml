@@ -22,6 +22,9 @@ jobs:
       - name: Run Linter (Gradle)
         run: ./gradlew lint  # Run linting for your Android project using Gradle
 
+      - name: List files in build/reports (Debug)
+        run: ls -l build/reports  # List files in the build/reports directory
+
       - name: Check lint results file
         run: ls -l build/reports/lint-results.xml  # Verify that the lint results file exists
 

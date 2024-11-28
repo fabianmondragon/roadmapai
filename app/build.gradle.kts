@@ -33,6 +33,15 @@ android {
             )
         }
     }
+
+
+    lint {
+        // Enable XML report generation
+        xmlReport = true
+        // Specify the output file location for lint results
+        xmlOutput = file("build/reports/lint-results.xml")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

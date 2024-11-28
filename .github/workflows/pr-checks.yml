@@ -1,9 +1,9 @@
-name: Android Lint
+name: Android Lint Review
 
 on:
   pull_request:
     branches:
-      - develop  # Run this workflow for PRs targeting 'develop'
+      - develop
 
 jobs:
   lint:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Check out the PR branch
+        uses: actions/checkout@v3
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -20,22 +20,18 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Android Lint
-        run: ./gradlew lint  # Run the Android lint task
+        run: ./gradlew lint
 
-      - name: Verify Lint Report Path
-        run: ls -R app/build/reports/lint-results.xml  # Ensure the lint report exists
-
-      - name: Set up Reviewdog
-        uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest  # Install Reviewdog
+      - name: Debug Lint Reports
+        run: ls -R app/build/reports/
 
       - name: Post Lint Results with Reviewdog
         run: |
-          reviewdog -f=checkstyle \
+          reviewdog \
+            -f=rdjson \
             -name="Android Lint" \
             -reporter=github-pr-review \
             -level=error \
-            < app/build/reports/lint-results.xml
+            -input=app/build/reports/lint-results.xml
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

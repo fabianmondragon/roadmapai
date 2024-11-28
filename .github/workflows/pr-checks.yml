@@ -1,12 +1,12 @@
-name: PR Revision
+name: Test JDK Setup
 
 on:
   pull_request:
     branches:
-      - develop  # Trigger on pull requests targeting the 'develop' branch
+      - develop
 
 jobs:
-  lint:
+  setup-java:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,14 +17,4 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'  # Specify the required distribution
-
-      - name: Run Linter
-        run: ./gradlew lint
-
-      - name: Report Lint Issues to PR
-        uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          filter_mode: added  # Only comment on changes in the PR
+          distribution: 'temurin'

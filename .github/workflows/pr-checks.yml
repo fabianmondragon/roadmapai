@@ -50,8 +50,9 @@ jobs:
           path: app/build/reports/lint-results.xml  # Upload lint results file as an artifact
 
       - name: Reviewdog Lint Report
-        uses: reviewdog/action-checkstyle@v1  # Correct Reviewdog action
+        uses: reviewdog/action-setup@v1  # Correct Reviewdog action
         with:
+          reviewdog_version: latest
           github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
           reporter: github-pr-review  # This will post comments directly on the PR
           check_name: "Android Lint"  # Name of the check in GitHub

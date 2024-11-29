@@ -3,7 +3,7 @@ name: PR Revision
 on:
   pull_request:
     branches:
-      - develop  # Trigger on PR targeting the 'develop' branch
+      - main  # Trigger on PR targeting the 'develop' branch
 
 permissions:
   contents: write  # Allow writing to the repository (necessary for posting comments)

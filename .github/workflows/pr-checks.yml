@@ -43,6 +43,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
           reporter: github-pr-review  # This will post comments directly on the PR
           check_name: "Android Lint"  # Optional: Name for the check
-          lint_command: 'cat app/build/reports/lint-results.xml'  # Read lint results file
+          lint_command: 'cat roadmapai/app/build/reports/lint-results.xml'  # Read lint results file
           lint_format: 'checkstyle'  # Specify Checkstyle format for Reviewdog
       - run: reviewdog -version

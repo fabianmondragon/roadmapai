@@ -1,12 +1,20 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.dokkaPlugins)
+    alias(libs.plugins.hiltPlugins)
+    kotlin("kapt")
+
 }
 
 android {
     namespace = "com.fabiandev.roadmapai"
     compileSdk = 34
 
+    lint {
+        xmlReport = true
+        xmlOutput = file("build/reports/lint-results.xml")  // Ensure the path is correct
+    }
     defaultConfig {
         applicationId = "com.fabiandev.roadmapai"
         minSdk = 24
@@ -44,10 +52,16 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/NOTICE.md"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/LICENSE.txt"
+
         }
     }
 }
+
 
 dependencies {
 
@@ -59,6 +73,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.navigation.compose)
+    implementation(libs.dokka.jetbrains)
+    implementation(libs.dagger.hilt)
+    implementation(libs.navigation.hilt)
+    implementation(libs.javapoet)
+    kapt(libs.hilt.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

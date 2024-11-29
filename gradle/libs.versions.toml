@@ -8,6 +8,12 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
 composeBom = "2023.08.00"
+navigation = "2.7.1"
+dokka = "1.9.20"
+dokkaPluginVersion = "1.9.0"
+hilt = "2.48"
+hiltNavigation = "1.1.0-alpha01"
+javapoetversion = "1.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,8 +30,18 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+navigation-compose = {group= "androidx.navigation", name = "navigation-compose", version.ref ="navigation" }
+dokka-jetbrains = {group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref= "dokka"}
+
+dagger-hilt = {group = "com.google.dagger", name = "hilt-android", version.ref="hilt"}
+hilt-compiler = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref="hilt"}
+navigation-hilt = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref="hiltNavigation"}
+javapoet = {group="com.squareup", name= "javapoet", version.ref = "javapoetversion"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+dokkaPlugins = {id = "org.jetbrains.dokka", version.ref = "dokkaPluginVersion"}
+hiltPlugins = {id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+
 

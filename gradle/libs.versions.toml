@@ -14,6 +14,8 @@ dokkaPluginVersion = "1.9.0"
 hilt = "2.48"
 hiltNavigation = "1.1.0-alpha01"
 javapoetversion = "1.13.0"
+firebaseAuthentication = "21.5.0"
+googleServices = "4.4.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +34,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 navigation-compose = {group= "androidx.navigation", name = "navigation-compose", version.ref ="navigation" }
 dokka-jetbrains = {group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref= "dokka"}
+firebase-auth= {group= "com.google.firebase", name= "firebase-auth", version.ref = "firebaseAuthentication"}
 
 dagger-hilt = {group = "com.google.dagger", name = "hilt-android", version.ref="hilt"}
 hilt-compiler = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref="hilt"}
@@ -43,5 +46,5 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 dokkaPlugins = {id = "org.jetbrains.dokka", version.ref = "dokkaPluginVersion"}
 hiltPlugins = {id = "com.google.dagger.hilt.android", version.ref = "hilt"}
-
+googleServices = {id = "com.google.gms.google-services", version.ref = "googleServices"}
 

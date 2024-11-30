@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.dokkaPlugins)
     alias(libs.plugins.hiltPlugins)
+    alias(libs.plugins.googleServices)
     kotlin("kapt")
 
 }
@@ -74,6 +75,8 @@ dependencies {
     implementation(libs.dagger.hilt)
     implementation(libs.navigation.hilt)
     implementation(libs.javapoet)
+    implementation(libs.firebase.auth)
+
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)

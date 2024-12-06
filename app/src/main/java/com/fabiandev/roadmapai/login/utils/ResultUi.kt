@@ -5,5 +5,6 @@ sealed class ResultUi {
     data class Fail(val msg: String = "There is an error") : ResultUi()
     data object InitialState: ResultUi()
 
+    data object Proccesing: ResultUi()
 
 }

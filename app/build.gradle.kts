@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.navigation.hilt)
     implementation(libs.javapoet)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.auth.ktx)
 
     kapt(libs.hilt.compiler)
 

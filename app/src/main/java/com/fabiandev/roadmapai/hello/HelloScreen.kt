@@ -1,4 +1,4 @@
-package com.fabiandev.roadmapai.login.ui
+package com.fabiandev.roadmapai.hello
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
-import com.fabiandev.roadmapai.login.RoadMapRoute
+import com.fabiandev.roadmapai.login.ui.RoadMapRoute
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
 import com.fabiandev.roadmapai.ui.theme.Pink40
 import com.fabiandev.roadmapai.ui.theme.Pink80
@@ -37,11 +37,11 @@ import com.fabiandev.roadmapai.ui.theme.Pink80
 @Composable
 @Preview
 fun PreviewLoginSignUp() {
-    HomeScreen(navController = rememberNavController())
+    HelloScreen(navController = rememberNavController())
 }
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HelloScreen(navController: NavHostController) {
 
     val textLogin = buildAnnotatedString {
         append("Already have an account? ")
@@ -106,12 +106,14 @@ fun HomeScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_80dp)))
 
             RoadMapNavigationButton(
-                navController = navController,
-                route = RoadMapRoute.signup.toString(),
                 text = stringResource(id = R.string.signup),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(50.dp),
+                onClick = {
+                    navController.navigate( RoadMapRoute.signup.toString())
+                }
+
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_16dp)))
@@ -126,12 +128,13 @@ fun HomeScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_16dp)))
 
             RoadMapNavigationButton(
-                navController = navController,
-                route = RoadMapRoute.signup.toString(),
                 text = stringResource(id = R.string.signup_google),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.size_50dp))
+                    .height(dimensionResource(id = R.dimen.size_50dp)),
+                onClick = {
+                    navController.navigate( RoadMapRoute.signup.toString())
+                }
             )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_32dp)))
 

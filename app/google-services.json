@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "499974138879",
+    "project_id": "roadmapai-1d58b",
+    "storage_bucket": "roadmapai-1d58b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499974138879:android:5632be35d6fa1f47d095ca",
+        "android_client_info": {
+          "package_name": "com.fabiandev.roadmapai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBy6daCk3dsOoSAhJXE4sZJKmGA4ap11w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

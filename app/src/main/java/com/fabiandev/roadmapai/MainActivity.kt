@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.fabiandev.roadmapai.login.MainLoginRegisterScreen
+import com.fabiandev.roadmapai.login.ui.MainLoginRegisterScreen
 import com.fabiandev.roadmapai.ui.theme.RoadmapaiTheme
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,7 +1,7 @@
-package com.fabiandev.roadmapai.login
+package com.fabiandev.roadmapai.login.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,11 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,9 +22,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,8 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
-import com.fabiandev.roadmapai.ui.theme.Pink40
-import com.fabiandev.roadmapai.ui.theme.Pink80
 import com.fabiandev.roadmapai.ui.theme.Purple80
 import com.fabiandev.roadmapai.ui.theme.PurpleGrey80
 
@@ -45,6 +38,8 @@ fun LoginScreen(onLogin: ((String, String) -> Unit)?, navController: NavHostCont
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+
+    Log.i("Navigation", "LoginScree")
 
     Box(
         Modifier
@@ -118,8 +113,6 @@ fun LoginScreen(onLogin: ((String, String) -> Unit)?, navController: NavHostCont
             Spacer(modifier = Modifier.height(16.dp))
 
             RoadMapNavigationButton(
-                navController = navController,
-                route = "home",
                 text = "Sign Up",
             )
         }

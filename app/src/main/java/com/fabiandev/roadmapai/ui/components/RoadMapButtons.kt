@@ -18,14 +18,15 @@ import com.fabiandev.roadmapai.ui.theme.PurpleGrey80
 
 @Composable
 fun RoadMapNavigationButton(
-    navController: NavController,
-    route: String,
     text: String,
     modifier: Modifier = Modifier.fillMaxWidth(),
-    isEnabled: Boolean = true
+    isEnabled: Boolean = true,
+    onClick:  ()-> Unit = {}
 ) {
     Button(
-        onClick = { navController.navigate(route) },
+        onClick = {
+            onClick.invoke()
+        },
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
@@ -40,3 +41,4 @@ fun RoadMapNavigationButton(
         Text(text = text)
     }
 }
+

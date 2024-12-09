@@ -1,4 +1,4 @@
-package com.fabiandev.roadmapai.login
+package com.fabiandev.roadmapai.signup.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -33,13 +32,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
-import com.fabiandev.roadmapai.login.signup.SignUpViewModel
+import com.fabiandev.roadmapai.login.ui.RoadMapRoute
+import com.fabiandev.roadmapai.signup.viewmodel.SignUpViewModel
 import com.fabiandev.roadmapai.login.utils.ResultUi
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
 import com.fabiandev.roadmapai.ui.theme.Pink40
 
 import com.fabiandev.roadmapai.ui.theme.Purple80
 import com.fabiandev.roadmapai.ui.theme.PurpleGrey80
+import com.fabiandev.roadmapai.ui.utils.LoaderExample
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,9 +49,6 @@ fun SignUpScreen(
     navController: NavHostController,
     signUpViewModel: SignUpViewModel = hiltViewModel()
 ) {
-
-    val context = LocalContext.current
-
     val email by signUpViewModel.email.collectAsState()
     val emailError by signUpViewModel.emailError.collectAsState()
 
@@ -60,13 +58,7 @@ fun SignUpScreen(
     val repeatPassword by signUpViewModel.repeatPassword.collectAsState()
     val repeatPasswordError by signUpViewModel.repeatPasswordError.collectAsState()
 
-
-    // Observe navigation events
-    LaunchedEffect(signUpViewModel.navigationEvent) {
-        signUpViewModel.navigationEvent.collect { route ->
-            navController.navigate(route) // Perform navigation based on the emitted route
-        }
-    }
+    val navigation by signUpViewModel.navigationEvent.collectAsState()
 
     Box(
         Modifier
@@ -156,7 +148,6 @@ fun SignUpScreen(
 
 
                 ),
-
                 visualTransformation = PasswordVisualTransformation()
             )
 
@@ -207,14 +198,38 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             RoadMapNavigationButton(
-                navController = navController,
                 isEnabled = signUpViewModel.thereIsError(),
-                route = "home",
-                text = "Sign Up"
+                //route = RoadMapRoute.hello.toString(),
+                text = "Sign Up",
+                onClick = {
+                    signUpViewModel.signUp()
+
+                }
             )
         }
     }
+    OnNavigationEvent(navigation, navController)
 }
+
+@Composable
+fun OnNavigationEvent(navigation: ResultUi, navController: NavHostController) {
+
+    when (navigation) {
+        is ResultUi.Fail -> LoaderExample(isLoading = false)
+        ResultUi.InitialState -> LoaderExample(isLoading = false)
+        ResultUi.Proccesing -> LoaderExample(isLoading = true)
+        ResultUi.Success -> {
+
+            LoaderExample(isLoading = false)
+            LaunchedEffect(navigation) {
+                navController.navigate(RoadMapRoute.hello.toString())
+            }
+
+        }
+
+    }
+}
+
 
 @Composable
 @Preview

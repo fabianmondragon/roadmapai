@@ -1,5 +1,6 @@
 package com.fabiandev.roadmapai.signup.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,7 @@ import com.fabiandev.roadmapai.ui.theme.Pink40
 
 import com.fabiandev.roadmapai.ui.theme.Purple80
 import com.fabiandev.roadmapai.ui.theme.PurpleGrey80
-import com.fabiandev.roadmapai.ui.utils.LoaderExample
+import com.fabiandev.roadmapai.ui.utils.RoadMapLoader
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,6 +60,7 @@ fun SignUpScreen(
     val repeatPasswordError by signUpViewModel.repeatPasswordError.collectAsState()
 
     val navigation by signUpViewModel.navigationEvent.collectAsState()
+    Log.i("Navigation", "SignUpScreen")
 
     Box(
         Modifier
@@ -215,14 +217,14 @@ fun SignUpScreen(
 fun OnNavigationEvent(navigation: ResultUi, navController: NavHostController) {
 
     when (navigation) {
-        is ResultUi.Fail -> LoaderExample(isLoading = false)
-        ResultUi.InitialState -> LoaderExample(isLoading = false)
-        ResultUi.Proccesing -> LoaderExample(isLoading = true)
+        is ResultUi.Fail -> RoadMapLoader(isLoading = false)
+        ResultUi.InitialState -> RoadMapLoader(isLoading = false)
+        ResultUi.Proccesing -> RoadMapLoader(isLoading = true)
         ResultUi.Success -> {
 
-            LoaderExample(isLoading = false)
+            RoadMapLoader(isLoading = false)
             LaunchedEffect(navigation) {
-                navController.navigate(RoadMapRoute.hello.toString())
+                navController.navigate(RoadMapRoute.Hello.toString())
             }
 
         }

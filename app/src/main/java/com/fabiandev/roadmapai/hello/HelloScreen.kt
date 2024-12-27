@@ -111,7 +111,7 @@ fun HelloScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .height(50.dp),
                 onClick = {
-                    navController.navigate( RoadMapRoute.signup.toString())
+                    navController.navigate( RoadMapRoute.Signup.toString())
                 }
 
             )
@@ -133,7 +133,7 @@ fun HelloScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .height(dimensionResource(id = R.dimen.size_50dp)),
                 onClick = {
-                    navController.navigate( RoadMapRoute.signup.toString())
+                    navController.navigate( RoadMapRoute.Signup.toString())
                 }
             )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_32dp)))
@@ -145,7 +145,7 @@ fun HelloScreen(navController: NavHostController) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = dimensionResource(id = R.dimen.size_16dp))
                     .clickable {
-                        navController.navigate(RoadMapRoute.login.toString())
+                        navController.navigate(RoadMapRoute.Login.toString())
                     }
             )
 

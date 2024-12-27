@@ -1,6 +1,5 @@
 package com.fabiandev.roadmapai.login.ui
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,17 +21,17 @@ fun MainLoginRegisterScreen() {
     // The navHost composable is used to define the navigation graph.
     NavHost(
         navController = navController,
-        startDestination = RoadMapRoute.hello.toString()
+        startDestination = RoadMapRoute.Hello.toString()
     ) {
-        composable(RoadMapRoute.hello.toString()) { HelloScreen(navController) }
-        composable(RoadMapRoute.login.toString()) { LoginScreen(::onLogin, navController) }
-        composable(RoadMapRoute.signup.toString()) { SignUpScreen(navController) }
+        composable(RoadMapRoute.Hello.toString()) { HelloScreen(navController) }
+        composable(RoadMapRoute.Login.toString()) { LoginScreen(::onLogin, navController) }
+        composable(RoadMapRoute.Signup.toString()) { SignUpScreen(navController) }
     }
 }
 sealed class RoadMapRoute {
-    object hello: RoadMapRoute()
-    object login: RoadMapRoute()
-    object signup: RoadMapRoute()
+    data object Hello: RoadMapRoute()
+    data object Login: RoadMapRoute()
+    data object Signup: RoadMapRoute()
 }
 
 fun onLogin(username: String, password: String): Unit {

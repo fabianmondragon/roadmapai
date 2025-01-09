@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.hello.HelloScreen
+import com.fabiandev.roadmapai.home.ui.HomeScreen
 import com.fabiandev.roadmapai.signup.ui.SignUpScreen
 
 /**
@@ -32,6 +33,7 @@ sealed class RoadMapRoute {
     data object Hello: RoadMapRoute()
     data object Login: RoadMapRoute()
     data object Signup: RoadMapRoute()
+    data object Home: RoadMapRoute()
 }
 
 fun onLogin(username: String, password: String): Unit {

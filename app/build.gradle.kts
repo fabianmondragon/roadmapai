@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.javapoet)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
 
     kapt(libs.hilt.compiler)
 

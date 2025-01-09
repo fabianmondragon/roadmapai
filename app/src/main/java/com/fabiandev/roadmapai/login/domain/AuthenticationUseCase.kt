@@ -9,8 +9,8 @@ class AuthenticationUseCase @Inject constructor(
     private val authenticationRepository: AuthenticationRepository
 ) {
 
-    suspend fun registerUser(email:String, password: String): RoadMapResult<AuthenticationResponse> {
-        return authenticationRepository.registerUser(email, password)
+    suspend fun registerUser(userName: String = "hola", email:String, password: String): RoadMapResult<AuthenticationResponse> {
+        return authenticationRepository.registerUser(userName, email, password)
     }
     suspend fun loginUser(email: String, password: String): RoadMapResult<LoginEntity> {
         return authenticationRepository.loginUser(email, password)

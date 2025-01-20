@@ -27,6 +27,7 @@ fun MainLoginRegisterScreen() {
         composable(RoadMapRoute.Hello.toString()) { HelloScreen(navController) }
         composable(RoadMapRoute.Login.toString()) { LoginScreen(::onLogin, navController) }
         composable(RoadMapRoute.Signup.toString()) { SignUpScreen(navController) }
+        composable(RoadMapRoute.Home.toString()) { HomeScreen(navController) }
     }
 }
 sealed class RoadMapRoute {

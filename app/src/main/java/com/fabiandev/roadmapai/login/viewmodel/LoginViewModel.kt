@@ -9,6 +9,7 @@ import com.fabiandev.roadmapai.login.utils.Constant
 import com.fabiandev.roadmapai.login.utils.Constant.Companion.emailRegex
 import com.fabiandev.roadmapai.login.utils.ResultUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,7 +30,7 @@ class LoginViewModel @Inject constructor(
     fun login() {
         Log.i("Navigation", "Login")
         _navigationEvent.value = ResultUi.Proccesing
-        viewModelScope.launch {
+        viewModelScope.launch (Dispatchers.IO) {
             val result = authenticationUseCase.loginUser(
                 email = _formState.value.email,
                 password = _formState.value.password

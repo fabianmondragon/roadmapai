@@ -106,7 +106,6 @@ fun OnNavigationEvent(navigation: ResultUi, navController: NavHostController) {
     when (navigation) {
         is ResultUi.Fail -> {
             Log.i("Navigation", "Enter fail")
-            //LoaderExample(isLoading = false)
             CustomToastExample(message = navigation.msg)
         }
 
@@ -116,7 +115,7 @@ fun OnNavigationEvent(navigation: ResultUi, navController: NavHostController) {
 
             RoadMapLoader(isLoading = false)
             LaunchedEffect(navigation) {
-                navController.navigate(RoadMapRoute.Hello.toString())
+                navController.navigate(RoadMapRoute.Home.toString())
             }
         }
     }

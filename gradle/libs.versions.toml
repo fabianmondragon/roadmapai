@@ -19,6 +19,9 @@ googleServices = "4.4.2"
 firebaseAuthKtx = "23.1.0"
 material3Android = "1.3.1"
 firebaseFirestoreKtx = "25.1.1"
+retroftiVersion = "2.9.0"
+gsonVersion = "2.9.0"
+okhttpVersion = "4.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,7 +42,9 @@ navigation-compose = {group= "androidx.navigation", name = "navigation-compose",
 dokka-jetbrains = {group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref= "dokka"}
 firebase-auth= {group= "com.google.firebase", name= "firebase-auth", version.ref = "firebaseAuthentication"}
 firebase-auth-ktx= {group= "com.google.firebase", name= "firebase-auth-ktx", version.ref = "firebaseAuthKtx"}
-
+retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retroftiVersion"}
+gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonVersion" }
+okhttp = {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpVersion"}
 
 dagger-hilt = {group = "com.google.dagger", name = "hilt-android", version.ref="hilt"}
 hilt-compiler = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref="hilt"}

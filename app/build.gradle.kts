@@ -88,6 +88,10 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
 
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)

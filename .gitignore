@@ -1,15 +1,41 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local configuration
 local.properties
+
+# IDE specific
+.idea/
+*.iml
+
+# Keystore files
+*.jks
+
+# Log and temp files
+*.log
+*.tmp
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Crashlytics/Performance (if used)
+fabric.properties
+firebase-debug.log
+
+# Jetpack Compose compiler caches
+.ui-cache/
+
+# Kotlin specific
+*.kotlin_module
+
+# Generated JSONs
+*.json
+
+# Signing configs (optional)
+signing.properties
+
+# Google Services
+google-services.json

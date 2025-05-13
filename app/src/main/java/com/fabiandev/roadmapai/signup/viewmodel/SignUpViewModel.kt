@@ -1,17 +1,18 @@
 package com.fabiandev.roadmapai.signup.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fabiandev.roadmapai.login.domain.AuthenticationUseCase
 import com.fabiandev.roadmapai.login.domain.util.RoadMapResult
 import com.fabiandev.roadmapai.login.utils.Constant.Companion.emailRegex
 import com.fabiandev.roadmapai.login.utils.Constant.Companion.passwordRegex
+import com.fabiandev.roadmapai.login.utils.NavigationEventUi
 import com.fabiandev.roadmapai.login.utils.ResultUi
+import com.fabiandev.roadmapai.login.utils.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -44,29 +45,33 @@ class SignUpViewModel @Inject constructor(
     val repeatPasswordError: StateFlow<ResultUi> = _repeatPasswordError
 
     // SharedFlow for navigation events
-    private val _navigationEvent = MutableStateFlow<ResultUi>(ResultUi.InitialState)
-    val navigationEvent: StateFlow<ResultUi> = _navigationEvent
+    private val _navigationEvent = MutableSharedFlow<NavigationEventUi>()  // No initial state
+    val navigationEvent: SharedFlow<NavigationEventUi> = _navigationEvent
+
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent = _uiEvent
+
      fun signUp(){
         viewModelScope.launch {
-            _navigationEvent.value = ResultUi.Proccesing
+            _uiEvent.emit(UiEvent.ShowLoading)
             val result = authenticationUseCase.registerUser(email= _email.value, password = _password.value)
-            Log.i("Navigation", "arrived result")
             when (result){
                 is RoadMapResult.Fail -> {
-                    _navigationEvent.value = ResultUi.Fail (result.msg)
+                    _uiEvent.emit(UiEvent.HideLoading)
+                    _uiEvent.emit(UiEvent.ShowToast(result.msg))
                 }
                 is RoadMapResult.Processing -> {
-                    _navigationEvent.value = ResultUi.Proccesing
+                    _uiEvent.emit(UiEvent.HideLoading)
                 }
                 is RoadMapResult.Success -> {
-                    Log.i("Navigation", "Success")
-                    _navigationEvent.value = ResultUi.Success
+                    _uiEvent.emit(UiEvent.HideLoading)
+                    _navigationEvent.emit(NavigationEventUi.NavigateToHello)
                 }
             }
         }
     }
 
-    fun onEmailChanged(newEmail: String) {
+    fun onEmailChanged(newEmail: String, ) {
         _email.update { newEmail }
         validateEmail(newEmail)
     }
@@ -82,15 +87,15 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun validateEmail(email: String) {
-        _emailError.value = if (email.matches(emailRegex)) ResultUi.Success else ResultUi.Fail("Invalid email format")
+        _emailError.value = if (email.matches(emailRegex)) ResultUi.Success else ResultUi.Fail()
     }
 
     private fun validatePassword(password: String) {
-        _passwordError.value = if (password.matches(passwordRegex)) ResultUi.Success else ResultUi.Fail("Invalid password format")
+        _passwordError.value = if (password.matches(passwordRegex)) ResultUi.Success else ResultUi.Fail()
     }
 
     private fun validateRepeatPassword(){
-        _repeatPasswordError.value = if ( validateSamePassword()) ResultUi.Success else ResultUi.Fail("The password do not match")
+        _repeatPasswordError.value = if (validateSamePassword()) ResultUi.Success else ResultUi.Fail()
     }
 
     fun thereIsError(): Boolean {

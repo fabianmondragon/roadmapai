@@ -6,7 +6,7 @@ import com.fabiandev.roadmapai.login.domain.util.RoadMapResult
 
 interface AuthenticationRepository {
 
-    suspend fun registerUser(userName: String, email:String, password: String): RoadMapResult<AuthenticationResponse>
+    suspend fun registerUser(email:String, password: String): RoadMapResult<AuthenticationResponse>
     suspend fun loginUser(email: String, password: String): RoadMapResult<LoginEntity>
     suspend fun logout()
 }

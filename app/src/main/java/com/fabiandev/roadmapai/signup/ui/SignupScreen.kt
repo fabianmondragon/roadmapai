@@ -1,6 +1,5 @@
 package com.fabiandev.roadmapai.signup.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,15 +32,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
+import com.fabiandev.roadmapai.hello.HelloScreen
 import com.fabiandev.roadmapai.login.ui.RoadMapRoute
+import com.fabiandev.roadmapai.login.utils.NavigationEventUi
 import com.fabiandev.roadmapai.signup.viewmodel.SignUpViewModel
 import com.fabiandev.roadmapai.login.utils.ResultUi
+import com.fabiandev.roadmapai.login.utils.UiEvent
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
 import com.fabiandev.roadmapai.ui.theme.Pink40
 
 import com.fabiandev.roadmapai.ui.theme.Purple80
 import com.fabiandev.roadmapai.ui.theme.PurpleGrey80
-import com.fabiandev.roadmapai.ui.utils.RoadMapLoader
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,8 +60,6 @@ fun SignUpScreen(
     val repeatPassword by signUpViewModel.repeatPassword.collectAsState()
     val repeatPasswordError by signUpViewModel.repeatPasswordError.collectAsState()
 
-    val navigation by signUpViewModel.navigationEvent.collectAsState()
-    Log.i("Navigation", "SignUpScreen")
 
     Box(
         Modifier
@@ -103,7 +102,7 @@ fun SignUpScreen(
             OutlinedTextField(
                 value = email ?: "",
                 onValueChange = { signUpViewModel.onEmailChanged(it) },
-                label = { Text("Email") },
+                label = { Text(stringResource(id = R.string.email)) },
                 isError = emailError is ResultUi.Fail,
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -121,7 +120,7 @@ fun SignUpScreen(
             )
             if (emailError is ResultUi.Fail) {
                 Text(
-                    text = (emailError as ResultUi.Fail).msg,
+                    text = stringResource(R.string.invalid_email_format),
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -133,7 +132,7 @@ fun SignUpScreen(
             OutlinedTextField(
                 value = password ?: "",
                 onValueChange = { signUpViewModel.onPasswordChange(it) },
-                label = { Text("Password") },
+                label = { Text(stringResource(id = R.string.password)) },
                 isError = passwordError is ResultUi.Fail,
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -155,7 +154,7 @@ fun SignUpScreen(
 
             if (passwordError is ResultUi.Fail) {
                 Text(
-                    text = (passwordError as ResultUi.Fail).msg,
+                    text = stringResource(R.string.invalid_password_format),
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -168,7 +167,7 @@ fun SignUpScreen(
             OutlinedTextField(
                 value = repeatPassword ?: "",
                 onValueChange = { signUpViewModel.onRepeatPasswordChange(it) },
-                label = { Text("Confirm Password") },
+                label = { Text(stringResource(id = R.string.confirm_password)) },
                 isError = repeatPasswordError is ResultUi.Fail,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Pink40,
@@ -189,7 +188,7 @@ fun SignUpScreen(
 
             if (repeatPasswordError is ResultUi.Fail) {
                 Text(
-                    text = (repeatPasswordError as ResultUi.Fail).msg,
+                    text = stringResource(R.string.passwords_do_not_match),
                     color = Color.Red,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(top = 4.dp)
@@ -210,31 +209,86 @@ fun SignUpScreen(
             )
         }
     }
-    OnNavigationEvent(navigation, navController)
-}
+    LaunchedEffect(Unit) {
+        signUpViewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowToast -> {
+                    // Handle the ShowToast event
+                }
 
-@Composable
-fun OnNavigationEvent(navigation: ResultUi, navController: NavHostController) {
+                is UiEvent.HideErrorScreen -> {
+                    // Handle the HideErrorScreen event
+                }
 
-    when (navigation) {
-        is ResultUi.Fail -> RoadMapLoader(isLoading = false)
-        ResultUi.InitialState -> RoadMapLoader(isLoading = false)
-        ResultUi.Proccesing -> RoadMapLoader(isLoading = true)
-        ResultUi.Success -> {
+                is UiEvent.HideLoading -> {
+                    // Handle the HideLoading event
+                }
 
-            RoadMapLoader(isLoading = false)
-            LaunchedEffect(navigation) {
-                navController.navigate(RoadMapRoute.Hello.toString())
+                is UiEvent.ShowErrorScreen -> {
+                    // Handle the ShowErrorScreen event
+                }
+
+                is UiEvent.ShowLoading -> {
+                    // Handle the ShowLoading event
+                }
+
+                is UiEvent.ShowSnackbar -> {
+                    // Handle the ShowSnackbar event
+                }
             }
 
         }
+    }
+    LaunchedEffect(Unit) {
+        signUpViewModel.navigationEvent.collect { event ->
+            when (event) {
+                is NavigationEventUi.NavigateToHello -> {
+                    navController.navigate(RoadMapRoute.Hello.toString()+  "?signupSuccess=${true}") //?signupSuccess=true")
+                }
 
+            }
+        }
     }
 }
 
 
 @Composable
+fun OnUiEvent(uiEvent: UiEvent, navController: NavHostController) {
+    when (uiEvent) {
+        is UiEvent.ShowToast -> {
+            // Handle the ShowToast event
+        }
+
+        is UiEvent.HideErrorScreen -> {
+
+        }
+
+        is UiEvent.HideLoading -> {
+
+        }
+
+        is UiEvent.ShowErrorScreen -> {
+
+        }
+
+        is UiEvent.ShowLoading -> {
+
+        }
+
+        is UiEvent.ShowSnackbar -> {
+
+        }
+    }
+}
+
+@Composable
 @Preview
 fun PreviewSignUp() {
     SignUpScreen(navController = rememberNavController())
+}
+
+@Composable
+@Preview
+fun PreviewHelloScreen() {
+    HelloScreen(navController = rememberNavController(), signupSuccess = true)
 }

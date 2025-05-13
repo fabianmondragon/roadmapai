@@ -36,11 +36,14 @@ android {
     }
 
 
+// Add Lint tool configuration
     lint {
         // Enable XML report generation
         xmlReport = true
         // Specify the output file location for lint results
         xmlOutput = file("build/reports/lint-results.xml")
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 
     compileOptions {

@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(
             when (result) {
                 is RoadMapResult.Fail -> {
                     Log.i("Navigation", "fail")
-                    _navigationEvent.value = ResultUi.Fail(result.msg)
+                    
                 }
 
                 is RoadMapResult.Processing -> {

@@ -4,12 +4,22 @@
     <string name="main_greeting">Hello.</string>
     <string name="sub_greeting">Let’s Get Started!</string>
     <string name="signup">Signup</string>
-    <string name="login">Login</string>
+    <string name="email">Email</string>
     <string name="enter_information">Enter information</string>
 
     <string name="up">Up</string>
     <string name="or">or</string>
+    <string name="password">Password</string>
+    <string name="login_successful">Login successful. Token: %s</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="failed_to_fetch_token">Failed to fetch token</string>
+    <string name="registration_failed">Registration failed: %s</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="passwords_do_not_match">The password do not match</string>
+    <string name="invalid_password_format">Invalid password format</string>
     <string name="signup_google">Sign Up with Google</string>
     <string name="login_prompt">Already have an account?</string>
     <string name="login_action">Sign in here</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Login</string>
 </resources>

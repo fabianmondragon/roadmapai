@@ -26,7 +26,6 @@ class FirebaseAuthenticationRepositoryImpl @Inject constructor(
 ) :
     AuthenticationRepository {
     override suspend fun registerUser(
-        userName: String,
         email: String,
         password: String,
     ): RoadMapResult<AuthenticationResponse> {
@@ -38,7 +37,6 @@ class FirebaseAuthenticationRepositoryImpl @Inject constructor(
                         val userId = user?.uid
                         val userData = hashMapOf(
                             "userId" to userId,
-                            "name" to userName,
                             "email" to email,
                             "registeredAt" to FieldValue.serverTimestamp()
                         )

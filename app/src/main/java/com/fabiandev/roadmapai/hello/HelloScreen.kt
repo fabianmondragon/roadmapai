@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -22,26 +24,28 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.fabiandev.roadmapai.R
 import com.fabiandev.roadmapai.login.ui.RoadMapRoute
 import com.fabiandev.roadmapai.ui.components.RoadMapNavigationButton
+import com.fabiandev.roadmapai.ui.components.SuccessDialog
 import com.fabiandev.roadmapai.ui.theme.Pink40
 import com.fabiandev.roadmapai.ui.theme.Pink80
+import kotlinx.coroutines.launch
 
 
 @Composable
-@Preview
-fun PreviewLoginSignUp() {
-    HelloScreen(navController = rememberNavController())
-}
+fun HelloScreen(navController: NavHostController, signupSuccess: Boolean = false) {
 
-@Composable
-fun HelloScreen(navController: NavHostController) {
+    var showDialog = remember { mutableStateOf(signupSuccess) }
+
+    if (showDialog.value) {
+        SuccessDialog(
+            message = "Registration successful!",
+            onDismiss = { showDialog.value = false })
+    }
 
     val textLogin = buildAnnotatedString {
         append("Already have an account? ")
@@ -98,7 +102,7 @@ fun HelloScreen(navController: NavHostController) {
             )
             Text(
                 text = stringResource(id = R.string.sub_greeting),
-                fontSize =  24.sp,
+                fontSize = 24.sp,
                 color = Color.White,
 
                 )
@@ -111,7 +115,7 @@ fun HelloScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .height(50.dp),
                 onClick = {
-                    navController.navigate( RoadMapRoute.Signup.toString())
+                    navController.navigate(RoadMapRoute.Signup.toString())
                 }
 
             )
@@ -133,7 +137,7 @@ fun HelloScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .height(dimensionResource(id = R.dimen.size_50dp)),
                 onClick = {
-                    navController.navigate( RoadMapRoute.Signup.toString())
+                    navController.navigate(RoadMapRoute.Signup.toString())
                 }
             )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_32dp)))
@@ -143,7 +147,8 @@ fun HelloScreen(navController: NavHostController) {
                 fontSize = 14.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.size_16dp))
+                modifier = Modifier
+                    .padding(top = dimensionResource(id = R.dimen.size_16dp))
                     .clickable {
                         navController.navigate(RoadMapRoute.Login.toString())
                     }

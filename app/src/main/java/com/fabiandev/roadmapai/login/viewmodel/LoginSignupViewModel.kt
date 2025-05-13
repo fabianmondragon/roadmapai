@@ -20,7 +20,7 @@ class LoginSignupViewModel @Inject constructor(
     private val _formState = MutableStateFlow(UiStateLogin())
     val formState: StateFlow <UiStateLogin> = _formState.asStateFlow()
 
-    private val _navigationEvent = MutableStateFlow<ResultUi>(ResultUi.InitialState)
+    private val _navigationEvent = MutableStateFlow<ResultUi>(ResultUi.InitialState)//todo ShareFlow
     val navigationEvent: StateFlow<ResultUi> = _navigationEvent.asStateFlow()
 
     fun login() {
